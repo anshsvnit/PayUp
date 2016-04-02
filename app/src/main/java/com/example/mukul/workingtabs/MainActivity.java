@@ -52,14 +52,15 @@ public class MainActivity extends AppCompatActivity{
         OnClickListener listener = new OnClickListener() {
 
             public void onClick(View v) {
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 hellofrag = new HelloFragment();
                 hellofrag.show(fragmentManager, "hello_fragment_layout");
+
             }
         };
 
         floatButton.setOnClickListener(listener);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -99,14 +100,6 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    //For bundle return values
-    /*
-     @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent intent){
-        super.onActivityResult(requestCode, resultCode, intent);
-        Bundle extras = intent.getExtras();
-        tview1.setText(extras != null ? extras.getString("returnKey") : "nothing returned");
-    }
-     */
+
 
 }

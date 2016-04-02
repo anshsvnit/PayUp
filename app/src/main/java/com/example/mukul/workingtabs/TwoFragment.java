@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-//import info.androidhive.materialtabs.R;
-
-
 public class TwoFragment extends Fragment {
 
     public TwoFragment() {
@@ -26,7 +23,6 @@ public class TwoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_two, container, false);
-
 
     }
 

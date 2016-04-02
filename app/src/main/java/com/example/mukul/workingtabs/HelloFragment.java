@@ -1,5 +1,7 @@
 package com.example.mukul.workingtabs;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -95,11 +97,9 @@ public class HelloFragment extends DialogFragment {
                 Toast.makeText(getContext(),
                         "added db", Toast.LENGTH_LONG).show();
 
-                // db.close();
-                // helper.close();
-                // created user defined method to clean the text fields
+
             }
-            // }else{toast("proper name");}
+
             else {
 
                 Toast.makeText(getContext(),
@@ -146,11 +146,8 @@ public class HelloFragment extends DialogFragment {
                         Toast.makeText(getContext(),
                                 "added db1", Toast.LENGTH_LONG).show();
 
-                        // db.close();
-                        // helper.close();
-                        // created user defined method to clean the text fields
                     }
-                    // }else{toast("proper name");}
+
                     else {
 
                         Toast.makeText(getContext(),
@@ -162,6 +159,15 @@ public class HelloFragment extends DialogFragment {
                 }
                 db1.close();
                 helper1.close();
+
+                getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                     @Override
+                                                     public void onDismiss(DialogInterface dialog) {
+                                                         getActivity().finish();
+                                                         startActivity(getActivity().getIntent());
+                                                     }
+
+                                                 } );
 
                 getDialog().dismiss();
             }
@@ -218,13 +224,6 @@ public class HelloFragment extends DialogFragment {
             e.printStackTrace();
         }
     }
-
-    /*mIntentString = savedInstanceState != null ? savedInstanceState.getString("myKey"):null;
-        if(mIntentString == null){
-            Bundle extras = getIntent().getExtras();
-            mIntentString = extras != null ? extras.getString("myKey") : "nothing passed in";
-        }
-        edt.setText(mIntentString);
-    */
+    
 }
 
