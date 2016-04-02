@@ -1,6 +1,8 @@
 package com.example.mukul.workingtabs;
 
 import android.app.Activity;
+import android.os.Bundle;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.Cursor;
@@ -13,21 +15,49 @@ import java.util.List;
  */
 public class getList extends Activity{
 
-    public DataHelper helper;
+
     public SQLiteDatabase db;
-    public static List<String> array = new ArrayList<String>();
+    public List<String> array = new ArrayList<String>();
+    public List<String> array1 = new ArrayList<String>();
+   // private Context context;
+
+    public getList(){
+        //REQUIRED PUBLIC CONST
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
     public List<String> getListofevents() {
-        db = getBaseContext().openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
-        Cursor crs = db.rawQuery("SELECT * FROM events", null);
+
+        this.db = this.openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
+
+        Cursor crs = db.rawQuery("SELECT * FROM event", null);
 
         while(crs.moveToNext()){
             String uname = crs.getString(crs.getColumnIndex("name"));
             Log.e("The string is : ",uname);
             array.add(uname);
         }
+        db.close();
         return array;
     }
+
+
+    public List<String> getListofstatus() {
+        this.db = this.openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
+        Cursor crs = db.rawQuery("SELECT * FROM event", null);
+
+        while(crs.moveToNext()){
+            String uname = crs.getString(crs.getColumnIndex("status"));
+            Log.e("The string is : ",uname);
+            array1.add(uname);
+        }
+        db.close();
+        return array1;
     }
+}
     

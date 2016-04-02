@@ -5,29 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
-    public List<String> array= new ArrayList<String>();
-    getList tmp;
+    public List<String> arrayevent= new ArrayList<String>();
+    public List<String> arraystatus= new ArrayList<String>();
+    public getList tmp;
+
+
     public ContactAdapter() {
-        array = tmp.getListofevents();
+
+        tmp = new getList();
+        arrayevent = tmp.getListofevents();
+        arraystatus = tmp.getListofstatus();
     }
 
 
     @Override
     public int getItemCount() {
-        return array.size();
+        return arrayevent.size();
     }
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        ContactInfo ci = contactList.get(i);
-        contactViewHolder.vName.setText(ci.name);
-        contactViewHolder.vSurname.setText(ci.surname);
+        String ce = arrayevent.get(i);
+        contactViewHolder.eventName.setText(ce);
+        String cs = arraystatus.get(i);
+        contactViewHolder.eventName.setText(cs);
 
     }
 
@@ -42,12 +49,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView eName;
+        protected TextView eventName;
+        protected TextView estatus;
 
         public ContactViewHolder(View v) {
             super(v);
-            eName =  (TextView) v.findViewById(R.id.Name);
-
+            eventName =  (TextView) v.findViewById(R.id.eventName);
+            estatus = (TextView) v.findViewById(R.id.eventStatus);
         }
     }
 }

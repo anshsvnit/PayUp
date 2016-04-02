@@ -2,39 +2,67 @@
 <items version="2" >
 
     <item
-        jar="/home/anshul/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-77418a3b389eb45d44f5fdc4777fee56a4762b88.jar" />
+        sha1="6e3578f92f7462d1a935a1d36173e3bdd1234976">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-49c610bb807fa061f6d1ba404f51c5aadbcface1.jar" />
     </item>
     <item
-        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-0152339d13c8e8daaedd3d4f88971a017be8bf07.jar" />
+        sha1="bc599eb9531da9d18bc58ec4eb0b1a1d895f6839">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-6d6379a1d66aa07f00c902949fc30015dbe0d583.jar" />
     </item>
     <item
-        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-99842c0c3fe4807431ba62ac5d17149ec6fedb67.jar" />
+        sha1="d4c936aa8c7d2522c82e3f1829c791d9e367f009">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-2e4778c3ada706d5a9e572e48667042e66ca9e87.jar" />
     </item>
     <item
-        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-34e47336e5b7e82a18437be66d21a16e54c53d24.jar" />
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-6db079fbbb4a2cec806cc7f9de306eb5c72db6dd.jar" />
     </item>
     <item
-        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-adb611482ed7fad3b7be7ded401d1c72d9b49c67.jar" />
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.0-c7cd172034f5cab30023aedfb38209901de9face.jar" />
+    </item>
+    <item
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/design/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1aa5b025efe97f5006f5be16d6ca67c6c3c0c0d8">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-e81f0d0b2d0b8d270c8a429a7115fcce13632791.jar" />
+    </item>
+    <item
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8c108c22c99e794eff255bb34d2a461200c4cbb0">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-3e003d6dbfc43faf8e8f3ca4120fd43fecf1cbf9.jar" />
+    </item>
+    <item
+        jar="/home/anshul/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.0/support-annotations-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.0-169b7cedda2350f52ea3822ac1295ab1afe7e7f4.jar" />
+    </item>
+    <item
+        jar="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="292a9fa091757208efa65e77eef63088247e51f3">
+        <dex dex="/home/anshul/Android Projects/android-Working-Tabs-master/app/build/intermediates/pre-dexed/debug/classes-2250c3c171c79c4d8f96c774e24a702ea70c3582.jar" />
     </item>
 
 </items>
