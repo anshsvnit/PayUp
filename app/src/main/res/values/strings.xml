@@ -25,5 +25,6 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="str_btn_load">Load Fragment</string>
     <string name="str_tv_fragment">This is a fragment</string>
+    <string name="title_activity_active_event">activeEvent</string>
 
 </resources>

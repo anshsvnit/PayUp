@@ -1,7 +1,9 @@
 package com.example.mukul.workingtabs;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,11 +50,29 @@ public class OneFragment extends Fragment {
         recList.setLayoutManager(llm);
         ContactAdapter ca = new ContactAdapter(getListofevents("events"),getListofstatus("events"));
 
+
         recList.setAdapter(ca);
 
         return v;
     }
 
+
+    public void onClickHandler(View v) {
+        Context context = getActivity();
+
+        TextView tview = (TextView) v.findViewById(R.id.eventName);
+        String evName = tview.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra("eventtext", evName);
+        //intent.setType("text/plain");
+
+//Check if device API is LESS than KitKat
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
+            context.startActivity(intent);
+        else
+            context.startActivity(Intent.createChooser(intent, "Share"));
+        startActivity(intent);
+    }
 
     public List<String> getListofevents(String evName) {
 

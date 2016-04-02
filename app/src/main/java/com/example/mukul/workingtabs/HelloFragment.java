@@ -224,6 +224,6 @@ public class HelloFragment extends DialogFragment {
             e.printStackTrace();
         }
     }
-    
+
 }
 

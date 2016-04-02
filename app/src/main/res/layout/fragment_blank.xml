@@ -15,12 +15,17 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Enter the Payment Name"
+        android:layout_marginBottom="16dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Enter the amount"
         android:layout_marginBottom="16dp"
         android:inputType="numberDecimal"/>
 
     <CheckBox
-        android:id="@+id/whipped_cream_checkbox"
+        android:id="@+id/divide_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Divide Equally"
