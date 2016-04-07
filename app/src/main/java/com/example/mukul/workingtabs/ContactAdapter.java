@@ -1,11 +1,11 @@
 package com.example.mukul.workingtabs;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.app.Activity;
 import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +13,23 @@ import java.util.List;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
 
-    public List<String> tmpEvents= new ArrayList<String>();
-    public List<String> tmpStatus= new ArrayList<String>();
 
-    public ContactAdapter(List<String> listEvents, List<String> statusList)  {
+    ArrayList<String> tmpEvents,tmpStatus,MemberNumber,tmpMoney,tmpDates;
+
+    public ContactAdapter(ArrayList<String> listEvents,ArrayList<String> listStatus,ArrayList<String> listMembers,ArrayList<String> listMoney,ArrayList<String> listDates)  {
         tmpEvents = listEvents;
-        tmpStatus = statusList;
+        tmpStatus = listStatus;
+        MemberNumber = listMembers;
+        tmpMoney = listMoney;
+        tmpDates = listDates;
+        Log.e("count of tmpEvents",String.valueOf(listEvents.size()));
+
     }
 
 
     @Override
     public int getItemCount() {
-        return tmpEvents.size();
+        return (tmpEvents.size());
     }
 
     @Override
@@ -34,7 +39,19 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         Log.e("The string passed :",ce);
         contactViewHolder.eventName.setText(ce);
         String cs = tmpStatus.get(i);
-        contactViewHolder.eStatus.setText(cs);
+        if (cs.equalsIgnoreCase("Yes")) {
+            Log.e("The string cs is:", cs);
+            contactViewHolder.eStatus.setText("Active");
+        }
+        String cn = MemberNumber.get(i);
+        Log.e("The string cn is:",cn);
+        contactViewHolder.eventMembers.setText(cn + " Members Added");
+        String cm = tmpMoney.get(i);
+        Log.e("The string cn is:",cm);
+        contactViewHolder.eventMembers.setText(cm);
+        String cd = tmpDates.get(i);
+        Log.e("The string cn is:",cd);
+        contactViewHolder.eventMembers.setText(cd);
 
     }
 
@@ -47,22 +64,37 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         return new ContactViewHolder(itemView);
     }
 
-   /* public void updateData(ArrayList<ViewModel> viewModels) {
-       tmpEvents.clear();
-        tmpStatus.clear();
-        items.addAll(viewModels);
-        notifyDataSetChanged();
-    }*/
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView eventName;
         protected TextView eStatus;
+        protected  TextView eventMembers;
+        protected TextView amount;
+        protected TextView sdate;
 
         public ContactViewHolder(View v) {
             super(v);
             eventName =  (TextView) v.findViewById(R.id.eventName);
             eStatus = (TextView) v.findViewById(R.id.eventStatus);
+            eventMembers= (TextView) v.findViewById(R.id.eventMembers);
+            amount = (TextView) v.findViewById(R.id.amount);
+            sdate = (TextView) v.findViewById(R.id.sdate);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent;
+                    if (eStatus.getText().toString().equalsIgnoreCase("Active")) {
+                        intent = new Intent(v.getContext(), activeEvent.class);
+                    }
+                    else {
+                        intent = new Intent(v.getContext(), over_event.class);
+                    }
+                    intent.putExtra("eventtext", eventName.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

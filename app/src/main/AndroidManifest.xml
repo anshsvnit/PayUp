@@ -43,6 +43,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mukul.workingtabs.MainActivity" />
         </activity>
+        <activity android:name=".over_event" />
+        <activity android:name=".addPayment"></activity>
     </application>
 
 </manifest>

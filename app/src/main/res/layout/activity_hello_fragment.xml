@@ -17,13 +17,10 @@
         android:layout_height="wrap_content"
         android:hint="Enter the event name"
         android:layout_marginBottom="16dp"
-        android:id="@+id/eventName"/>
+        android:id="@+id/eventName"
+        android:textSize="24sp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ADD CONTACT"
-        android:id="@+id/add_contact" />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,11 +35,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:id="@+id/textview1" />
+                android:textSize="30sp"
+                android:id="@+id/textview1"
+                android:layout_margin="8dp"
+                android:lineSpacingExtra="3sp"/>
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD CONTACT"
+        android:id="@+id/add_contact" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

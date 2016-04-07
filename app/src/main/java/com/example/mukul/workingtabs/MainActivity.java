@@ -2,7 +2,8 @@
 package com.example.mukul.workingtabs;
 
        import android.os.Bundle;
-        import android.support.design.widget.TabLayout;
+       import android.support.design.widget.FloatingActionButton;
+       import android.support.design.widget.TabLayout;
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentManager;
        import android.support.v4.app.FragmentActivity;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Button floatButton;
     private DialogFragment hellofrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +47,18 @@ public class MainActivity extends AppCompatActivity{
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        floatButton = (Button) findViewById(R.id.fab);
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
 
         OnClickListener listener = new OnClickListener() {
 
             public void onClick(View v) {
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 hellofrag = new HelloFragment();
                 hellofrag.show(fragmentManager, "hello_fragment_layout");
-
             }
         };
 
-        floatButton.setOnClickListener(listener);
+        button.setOnClickListener(listener);
     }
 
     private void setupViewPager(ViewPager viewPager) {

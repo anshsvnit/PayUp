@@ -1,25 +1,30 @@
 package com.example.mukul.workingtabs;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class HelloFragment extends DialogFragment {
@@ -34,7 +39,8 @@ public class HelloFragment extends DialogFragment {
     EditText eventName;
     public DataHelper helper;
     public DataHelper1 helper1;
-    public SQLiteDatabase db,db1;
+    public DataHelper2 helper2;
+    public SQLiteDatabase db,db1,db2;
 
     public String eName;
 
@@ -83,14 +89,16 @@ public class HelloFragment extends DialogFragment {
                 db = helper.getWritableDatabase();
                 Log.e("Helper Created", eName);
                 Log.d("Value of i : ", Integer.toString(i));
-
+                String currentDate = getDate();
                 if (!eName.equals("") ) {
                 ContentValues values = new ContentValues();
 
                 values.put(DataHelper.EVENT_NAME, eName);
                 values.put(DataHelper.EVENT_STATUS, "Yes");
-
-                // insert query will insert data in database with
+                values.put(DataHelper.MEMBER_NO, i);
+                values.put(DataHelper.START_DATE,currentDate);
+                values.put(DataHelper.AMOUNT_TOTAL,"0");
+                    // insert query will insert data in database with
                 // contentValues pair.
                      db.insert(helper.TABLE_NAME, null, values);
 
@@ -112,42 +120,60 @@ public class HelloFragment extends DialogFragment {
                 //Creating the table of event added
 
                 helper1 = new DataHelper1(getContext());
+                helper2 = new DataHelper2(getContext());
+                db2 = helper2.getWritableDatabase();
                 db1 = helper1.getWritableDatabase();
 
                 Log.e("Helper Created", eName);
                 Log.d("Value of i : ", Integer.toString(i));
 
+                if (!eName.equals("") ) {
+                    db1.execSQL("CREATE TABLE " + eName + " (" + DataHelper1.CONTACT_NAME + " TEXT," + DataHelper1.CONTACT_NO + " TEXT," + DataHelper1.AMOUNT_PAID + " TEXT);"
+                    );
+                    db2.execSQL("CREATE TABLE " + eName + " (" + DataHelper2.PAYMENT_NAME + " TEXT," + DataHelper2.PAYMENT_BY + " TEXT," + DataHelper2.PAYMENT_AMOUNT + " TEXT);"
+                    );
 
-                db1.execSQL("CREATE TABLE " + eName + " ("+ DataHelper1.CONTACT_NAME+ " TEXT,"+ DataHelper1.CONTACT_NO +" TEXT);"
-                );
+                    Log.e("TABLE_NAME", eName);
 
-                Log.e("TABLE_NAME", eName);
+                    ContentValues values;
+                    values = new ContentValues();
 
-                // getting data from edit text to string variables
-                for (int j = 0; j < i; j++) {
+                    values.put(DataHelper1.CONTACT_NAME, "ADMIN (Self)");
+                    values.put(DataHelper1.CONTACT_NO, " ");
+                    values.put(DataHelper1.AMOUNT_PAID, "0");
 
-                    String fname = names.get(j);
-                    String contact = contacts.get(j);
 
-                    // checking for empty fields
-                    if (!fname.equals("") ) {
+                    // insert query will insert data in database with
+                    // contentValues pair.
+                    db1.insert(eName, null, values);
+
+
+                    // getting data from edit text to string variables
+                    for (int j = 0; j < i; j++) {
+
+                        String fname = names.get(j);
+                        String contact = contacts.get(j);
+
+                        // checking for empty field
 
                         // contentValues will add data into key value pair which
                         // will later store in db
-                        ContentValues values = new ContentValues();
+                        values = new ContentValues();
 
                         values.put(DataHelper1.CONTACT_NAME, fname);
                         values.put(DataHelper1.CONTACT_NO, contact);
+                        values.put(DataHelper1.AMOUNT_PAID, "0");
+
 
                         // insert query will insert data in database with
                         // contentValues pair.
                         db1.insert(eName, null, values);
 
                         Toast.makeText(getContext(),
-                                "added db1", Toast.LENGTH_LONG).show();
+                                "added db", Toast.LENGTH_LONG).show();
 
                     }
-
+                }
                     else {
 
                         Toast.makeText(getContext(),
@@ -155,11 +181,10 @@ public class HelloFragment extends DialogFragment {
                     }
 
                     // closing the database connection
-
-                }
                 db1.close();
+                db2.close();
                 helper1.close();
-
+                helper2.close();
                 getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
                                                      @Override
                                                      public void onDismiss(DialogInterface dialog) {
@@ -174,6 +199,15 @@ public class HelloFragment extends DialogFragment {
         });
 
         return v;
+    }
+
+    public void onResume(){
+        super.onResume();
+        Window window = getDialog().getWindow();
+        int width = ViewGroup.LayoutParams.MATCH_PARENT;
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+        window.setLayout(width, height);
+        window.setGravity(Gravity.CENTER);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -225,5 +259,11 @@ public class HelloFragment extends DialogFragment {
         }
     }
 
+    public String getDate(){
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date today = Calendar.getInstance().getTime();
+        String reportDate = df.format(today);
+        return reportDate;
+    }
 }
 

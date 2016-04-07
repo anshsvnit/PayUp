@@ -20,6 +20,7 @@ public class DataHelper1  extends SQLiteOpenHelper{
 
     public static final String CONTACT_NAME="name";
     public static final String CONTACT_NO="number";
+    public static final String AMOUNT_PAID="paid";
 
 
     public DataHelper1(Context context) {

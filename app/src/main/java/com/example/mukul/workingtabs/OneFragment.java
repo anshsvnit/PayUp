@@ -3,7 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,11 +22,10 @@ import java.util.List;
 
 public class OneFragment extends Fragment {
 
+    FrameLayout frame;
     RecyclerView recList;
-    public SQLiteDatabase db;
-    public List<String> array = new ArrayList<String>();
-    public List<String> array1 = new ArrayList<String>();
-   // private Context context;
+    TextView BlankDB;
+    private SQLiteDatabase datab;
 
 
     public OneFragment() {
@@ -41,67 +42,60 @@ public class OneFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_one, container, false);
+        frame = (FrameLayout)v.findViewById(R.id.frame);
 
-        recList = (RecyclerView) v.findViewById(R.id.cardList);
+        if(checkDataBase()) {
+            recList = new RecyclerView(getActivity());
+            recList.setHasFixedSize(true);
+            LinearLayoutManager llm = new LinearLayoutManager(getContext());
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            recList.setLayoutManager(llm);
+            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
+            recList.setAdapter(ca);
+            frame.addView(recList);
+        }
 
-        recList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recList.setLayoutManager(llm);
-        ContactAdapter ca = new ContactAdapter(getListofevents("events"),getListofstatus("events"));
-
-
-        recList.setAdapter(ca);
-
+        else{
+            BlankDB = new TextView(getActivity());
+            BlankDB.setText("There is no event to display");
+            BlankDB.setTextSize(40);
+            frame.addView(BlankDB);
+        }
         return v;
     }
 
-
-    public void onClickHandler(View v) {
-        Context context = getActivity();
-
-        TextView tview = (TextView) v.findViewById(R.id.eventName);
-        String evName = tview.getText().toString();
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra("eventtext", evName);
-        //intent.setType("text/plain");
-
-//Check if device API is LESS than KitKat
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
-            context.startActivity(intent);
-        else
-            context.startActivity(Intent.createChooser(intent, "Share"));
-        startActivity(intent);
+    private boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(getActivity().getDatabasePath("events").toString(), null,
+                    SQLiteDatabase.OPEN_READONLY);
+            checkDB.close();
+        } catch (SQLiteException e) {
+            // database doesn't exist yet.
+        }
+        return checkDB != null;
     }
 
-    public List<String> getListofevents(String evName) {
 
-        this.db = getActivity().openOrCreateDatabase(evName, Context.MODE_PRIVATE, null);
+    public ArrayList<String> getListofevents(String evName,String attribute) {
 
-        Cursor crs = db.rawQuery("SELECT * FROM event", null);
-
+        datab = getActivity().openOrCreateDatabase(evName, Context.MODE_PRIVATE, null);
+        ArrayList<String> array = new ArrayList<String>();
+        Cursor crs = datab.rawQuery("SELECT * FROM event", null);
         while(crs.moveToNext()){
-            String uname = crs.getString(crs.getColumnIndex("name"));
-            Log.e("The string is : ", uname);
-            array.add(uname);
+            String uname = crs.getString(crs.getColumnIndex(attribute));
+            String tmpStatus = crs.getString(crs.getColumnIndex("status"));
+            if(tmpStatus.equalsIgnoreCase("Yes")) {
+                Log.e("The string is : ", uname);
+                array.add(uname);
+            }
         }
-        db.close();
+        crs.close();
+        datab.close();
         return array;
     }
 
 
-    public List<String> getListofstatus(String stName) {
-        this.db = getActivity().openOrCreateDatabase(stName, Context.MODE_PRIVATE, null);
-        Cursor crs = db.rawQuery("SELECT * FROM event", null);
-
-        while(crs.moveToNext()){
-            String uname = crs.getString(crs.getColumnIndex("status"));
-            Log.e("The string is : ",uname);
-            array1.add(uname);
-        }
-        db.close();
-        return array1;
-    }
 }
 
 
