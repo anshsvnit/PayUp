@@ -20,15 +20,14 @@ import java.util.ArrayList;
 
 public class TwoFragment extends Fragment {
 
-    public TwoFragment() {
-        // Required empty public constructor
-    }
-
-    /*FrameLayout frame;
+    FrameLayout frame;
     RecyclerView recList;
     TextView BlankDB;
     private SQLiteDatabase datab;
 
+    public TwoFragment() {
+        // Required empty public constructor
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,7 @@ public class TwoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_two, container, false);
-        frame = (FrameLayout)v.findViewById(R.id.frame);
+        frame = (FrameLayout)v.findViewById(R.id.frameover);
 
         if(checkDataBase()) {
             recList = new RecyclerView(getActivity());
@@ -47,8 +46,7 @@ public class TwoFragment extends Fragment {
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             recList.setLayoutManager(llm);
-
-            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"));
+            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
             recList.setAdapter(ca);
             frame.addView(recList);
         }
@@ -92,6 +90,7 @@ public class TwoFragment extends Fragment {
         datab.close();
         return array;
     }
-*/
+
+
 }
 

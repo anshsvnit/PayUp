@@ -43,6 +43,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
             Log.e("The string cs is:", cs);
             contactViewHolder.eStatus.setText("Active");
         }
+        else if (cs.equalsIgnoreCase("no")) {
+                Log.e("The string cs is:", cs);
+                contactViewHolder.eStatus.setText("Settled");
+        }
         String cn = MemberNumber.get(i);
         Log.e("The string cn is:",cn);
         contactViewHolder.eventMembers.setText(cn + " Members Added");
