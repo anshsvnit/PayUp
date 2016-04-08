@@ -37,9 +37,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         Log.e("The string passed :", ce);
         paymentViewHolder.pName.setText(ce);
         String cs = paymentsBy.get(i);
-        paymentViewHolder.pBy.setText(cs);
+        paymentViewHolder.pBy.setText("Paid By "+ cs);
         String ca =paymentsAmount.get(i);
-        paymentViewHolder.pamount.setText(ca);
+        paymentViewHolder.pamount.setText("Amount Paid = " +ca);
     }
 
     @Override
