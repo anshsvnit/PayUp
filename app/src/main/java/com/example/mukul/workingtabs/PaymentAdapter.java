@@ -25,7 +25,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         paymentsAmount= pAmountList;
     }
 
-
     @Override
     public int getItemCount() {
         return paymentsAmount.size();
@@ -41,7 +40,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         paymentViewHolder.pBy.setText(cs);
         String ca =paymentsAmount.get(i);
         paymentViewHolder.pamount.setText(ca);
-
     }
 
     @Override
@@ -58,7 +56,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         protected TextView pName;
         protected TextView pBy;
         protected TextView pamount;
-
 
         public PaymentViewHolder(View v) {
             super(v);

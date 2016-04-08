@@ -21,8 +21,6 @@ public class DataHelper2 extends SQLiteOpenHelper{
     public static final String PAYMENT_NAME="payment_name";
     public static final String PAYMENT_AMOUNT="payment_amount";
 
-
-
     public DataHelper2(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VER);
         // TODO Auto-generated constructor stub

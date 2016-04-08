@@ -4,13 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     card_view:cardCornerRadius="4dp"
     android:layout_margin="5dp">
 
-    <LinearLayout
+
+   <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="5dp"
         android:orientation="vertical">
 
@@ -21,17 +22,19 @@
 
             <TextView
                 android:id="@+id/eventName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="left"
                 android:textSize="20sp"
                 android:text="Galla"
+                android:layout_weight="1"
                 />
 
             <TextView
+                android:gravity="right"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:id="@+id/sdate"
                 android:layout_weight="1"/>
 
@@ -41,13 +44,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/amount"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="24sp" />
+                android:textSize="26sp"
+                android:textStyle="bold"/>
 
 
         </LinearLayout>
@@ -70,14 +75,11 @@
                 android:id="@+id/eventStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="right"
                 android:textSize="16sp"
                 android:layout_weight="1"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 </android.support.v7.widget.CardView>

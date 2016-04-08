@@ -15,48 +15,71 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import android.widget.LinearLayout;
+
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
-public class addPayment extends DialogFragment implements OnItemSelectedListener{
+public class addPayment extends DialogFragment implements OnItemSelectedListener {
 
-    Button btn,submit_but;
-    String eventName,paymentNameString,paymentAmountString,paymentByString,selectedPayee;
+    Button btn, submit_but;
+    String eventName, paymentNameString, paymentAmountString, paymentByString, selectedPayee;
     View v;
-    EditText paymentName,paymentAmount;
+    CheckBox divideEqual;
+    LinearLayout relativeLayout;
+    EditText paymentName, paymentAmount;
     public DataHelper2 helper;
     public DataHelper1 helper1;
-    public SQLiteDatabase db,db1;
+    public SQLiteDatabase db, db1;
     private android.widget.Spinner memberList;
     public int numberMember;
     public List<String> list = new ArrayList<String>();
+    public List<String> listedittext = new ArrayList<String>();
+    public List<EditText> listInputs = new ArrayList<EditText>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /** Inflating the layout for this fragment **/
+
         v = inflater.inflate(R.layout.activity_add_payment, container);
         btn = (Button) v.findViewById(R.id.close);
         submit_but = (Button) v.findViewById(R.id.submit);
+        divideEqual = (CheckBox) v.findViewById(R.id.divide_checkbox);
         memberList = (android.widget.Spinner) v.findViewById(R.id.memberlist);
         paymentName = (EditText) v.findViewById(R.id.pName);
         paymentAmount = (EditText) v.findViewById(R.id.pamount);
-        eventName = ((activeEvent)getActivity()).evName;
-
+        eventName = ((activeEvent) getActivity()).evName;
+        relativeLayout = (LinearLayout) v.findViewById(R.id.listpayments);
         addItemsOnSpinner();
         memberList.setOnItemSelectedListener(this);
 
+        for (int memberNumber = 0; memberNumber < numberMember; memberNumber++) {
+            listedittext = getListofevents(eventName, "name");
+            EditText tmpedit = new EditText(getActivity());
+            tmpedit.setId(memberNumber);
+            tmpedit.setInputType(2);
+            tmpedit.setHint(listedittext.get(memberNumber));
+            listInputs.add(tmpedit);
+            LinearLayout.LayoutParams layoutParam = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            relativeLayout.addView(tmpedit, layoutParam);
+
+        }
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
+
                 getDialog().dismiss();
             }
         });
@@ -64,72 +87,73 @@ public class addPayment extends DialogFragment implements OnItemSelectedListener
         submit_but.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                // TODO Auto-generated method stub
 
-                //Adding the new event to event list.
-
-                paymentNameString = paymentName.getText().toString();
                 paymentAmountString = paymentAmount.getText().toString();
-                paymentByString = selectedPayee;
-                helper = new DataHelper2(getContext());
-                // getting database for reading/writing purpose
-                db = helper.getWritableDatabase();
-                Log.e("Helper Created", eventName);
+                if (divideEqual.isChecked()) {
+                    addPaymentDB();
+                    helper1 = new DataHelper1(getActivity());
+                    db1 = helper1.getWritableDatabase();
 
-                if (!eventName.equals("")) {
-                    ContentValues values = new ContentValues();
+                    int paymentAmount = Integer.valueOf(paymentAmountString);
+                    float perPerson = Float.valueOf(paymentAmount) / Float.valueOf(numberMember);
 
-                    values.put(DataHelper2.PAYMENT_NAME, paymentNameString);
-                    values.put(DataHelper2.PAYMENT_AMOUNT, paymentAmountString);
-                    values.put(DataHelper2.PAYMENT_BY,paymentByString);
+                    List<String> amountDetailNames = getListofevents(eventName, "name");
+                    int position = amountDetailNames.indexOf(selectedPayee);
+                    List<String> amountDetails = getListofevents(eventName, "paid");
+                    List<String> changedDetails = new ArrayList<String>();
 
-                    // insert query will insert data in database with
-                    // contentValues pair.
-                    db.insert(eventName, null, values);
+
+                    for (int x = 0; x < amountDetails.size(); x++) {
+                        if (x == position) {
+                            changedDetails.add(x, String.valueOf(Float.valueOf(amountDetails.get(x)) - perPerson + paymentAmount));
+                        }
+
+                        else {
+                            changedDetails.add(x, String.valueOf(Float.valueOf(amountDetails.get(x)) - perPerson));
+                        }
+                        String query = "UPDATE " + eventName + " SET " + DataHelper1.AMOUNT_PAID + " = '" + changedDetails.get(x) + "' WHERE " + DataHelper1.CONTACT_NAME + " = '" + amountDetailNames.get(x) + "'";
+                        db1.execSQL(query);
+                    }
 
                     Toast.makeText(getContext(),
-                            "added db", Toast.LENGTH_LONG).show();
+                            "Added the Payment", Toast.LENGTH_LONG).show();
 
-                } else {
-
-                    Toast.makeText(getContext(),
-                            "There is error", Toast.LENGTH_LONG).show();
+                    db1.close();
+                    helper1.close();
                 }
 
-                db.close();
-                helper.close();
+                else {
+                    if (checkTotal(paymentAmountString)) {
+                        addPaymentDB();
+                        helper1 = new DataHelper1(getActivity());
+                        db1 = helper1.getWritableDatabase();
+                        Float paymentAmount = Float.valueOf(paymentAmountString);
+                        List<String> amountDetailNames = getListofevents(eventName, "name");
+                        List<String> amountDetails = getListofevents(eventName, "paid");
+                        List<String> changedDetails = new ArrayList<String>();
+                        int position = amountDetailNames.indexOf(selectedPayee);
 
-                helper1 = new DataHelper1(getActivity());
-                db1 = helper1.getWritableDatabase();
+                        for (int memberNumber = 0; memberNumber < numberMember; memberNumber++) {
+                            if (memberNumber == position) {
+                                Float payeeamount;
+                                payeeamount = (Float.valueOf(amountDetails.get(memberNumber))) - (Float.valueOf(listInputs.get(memberNumber).getText().toString())) + paymentAmount;
+                                changedDetails.add(memberNumber, String.valueOf(payeeamount));
+                            } else {
+                                changedDetails.add(memberNumber, String.valueOf(Float.valueOf(amountDetails.get(memberNumber)) - Float.valueOf(listInputs.get(memberNumber).getText().toString())));
+                            }
 
-                int paymentAmount = Integer.valueOf(paymentAmountString);
-                float perPerson = (Float.valueOf(paymentAmount)/Float.valueOf(numberMember));
+                            String query = "UPDATE " + eventName + " SET " + DataHelper1.AMOUNT_PAID + " = '" + changedDetails.get(memberNumber) + "' WHERE " + DataHelper1.CONTACT_NAME + " = '" + amountDetailNames.get(memberNumber) + "'";
+                            db1.execSQL(query);
 
-                List<String> amountDetailNames = getListofevents(eventName, "name");
-                int position = amountDetailNames.indexOf(selectedPayee);
-                List<String> amountDetails = getListofevents(eventName, "paid");
-                List<String> changedDetails = new ArrayList<String>();
-
-
-                for(int x=0; x< amountDetails.size(); x++){
-                if(x == position){
-                    changedDetails.add(x, String.valueOf(Float.valueOf(amountDetails.get(x)) - perPerson + paymentAmount));
-                }
+                        }
+                        Toast.makeText(getContext(),
+                                "Added the Payment", Toast.LENGTH_LONG).show();
+                    }
                     else{
-                    changedDetails.add(x,String.valueOf(Float.valueOf(amountDetails.get(x)) - perPerson));
-
+                        Toast.makeText(getContext(),
+                                "The total is not Proper. Cancelling Payment", Toast.LENGTH_LONG).show();
+                    }
                 }
-
-                    String query = "UPDATE "+ eventName+ " SET " + DataHelper1.AMOUNT_PAID + " = '"+ changedDetails.get(x)+"' WHERE "+DataHelper1.CONTACT_NAME+" = '"+ amountDetailNames.get(x)+"'";
-                    db.execSQL(query);
-                }
-
-                Toast.makeText(getContext(),
-                        "updated DB db", Toast.LENGTH_LONG).show();
-
-
-                db1.close();
-                helper1.close();
                 //Refresh Parent activity on closure
                 getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -144,12 +168,10 @@ public class addPayment extends DialogFragment implements OnItemSelectedListener
 
             }
         });
-
         return v;
     }
 
-
-    public List<String> getListofevents(String evName,String attribute) {
+    public List<String> getListofevents(String evName, String attribute) {
         this.db = getActivity().openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
         List<String> array = new ArrayList<String>();
         Cursor crs = db.rawQuery("SELECT * FROM " + evName, null);
@@ -158,40 +180,81 @@ public class addPayment extends DialogFragment implements OnItemSelectedListener
             String uname = crs.getString(crs.getColumnIndex(attribute));
             Log.e("The string is : ", uname);
             array.add(uname);
-            }
+        }
         crs.close();
         numberMember = array.size();
         return array;
-        }
+    }
 
     public void addItemsOnSpinner() {
 
         list = new ArrayList<String>();
         list = getListofevents(eventName, "name");
 
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter (getActivity(), android.R.layout.simple_spinner_item, list); //selected item will look like a spinner set from XML
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, list); //selected item will look like a spinner set from XML
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         memberList.setAdapter(spinnerArrayAdapter);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
+
         selectedPayee = parent.getItemAtPosition(position).toString();
     }
+
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
 
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
         int width = ViewGroup.LayoutParams.MATCH_PARENT;
         int height = ViewGroup.LayoutParams.MATCH_PARENT;
-        window.setLayout(width,height);
+        window.setLayout(width, height);
         window.setGravity(Gravity.CENTER);
     }
 
+    public void addPaymentDB() {
+        paymentNameString = paymentName.getText().toString();
+        paymentAmountString = paymentAmount.getText().toString();
+        paymentByString = selectedPayee;
+        helper = new DataHelper2(getContext());
 
+        db = helper.getWritableDatabase();
+        Log.e("Helper Created", eventName);
+
+        if (!eventName.equals("")) {
+            ContentValues values = new ContentValues();
+
+            values.put(DataHelper2.PAYMENT_NAME, paymentNameString);
+            values.put(DataHelper2.PAYMENT_AMOUNT, paymentAmountString);
+            values.put(DataHelper2.PAYMENT_BY, paymentByString);
+
+            db.insert(eventName, null, values);
+
+        } else {
+            Toast.makeText(getContext(),
+                    "There is error", Toast.LENGTH_LONG).show();
+        }
+        db.close();
+        helper.close();
+    }
+
+    public boolean checkTotal(String payment) {
+        Float total = 0.0f;
+        for (int memberNumber = 0; memberNumber < numberMember; memberNumber++) {
+            String tmpValue = listInputs.get(memberNumber).getText().toString();
+            if(tmpValue.equalsIgnoreCase("")){
+                return false;
+            }
+            total+= Float.valueOf(tmpValue);
+        }
+        if(payment.equalsIgnoreCase(String.valueOf(total))){
+            return true;
+        }
+        else
+            return false;
+    }
 }

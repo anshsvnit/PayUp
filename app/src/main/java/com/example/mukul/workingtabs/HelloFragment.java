@@ -32,8 +32,7 @@ public class HelloFragment extends DialogFragment {
     List<String> names = new ArrayList<String>();
     List<String> contacts = new ArrayList<String>();
     public int i = 0;
-    Button btn;
-    Button sub_but;
+    Button btn,sub_but;
     View v;
     TextView tview1;
     EditText eventName;
@@ -51,7 +50,6 @@ public class HelloFragment extends DialogFragment {
         btn=(Button)v.findViewById(R.id.close);
         sub_but = (Button)v.findViewById(R.id.submit);
         tview1=(TextView)v.findViewById(R.id.textview1);
-
         eventName = (EditText) v.findViewById(R.id.eventName);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -78,9 +76,7 @@ public class HelloFragment extends DialogFragment {
         sub_but.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                //Adding the new event to event list.
+                // TODO Add new Event
 
                 eName = eventName.getText().toString();
                 helper = new DataHelper(getContext());
@@ -90,34 +86,26 @@ public class HelloFragment extends DialogFragment {
                 Log.e("Helper Created", eName);
                 Log.d("Value of i : ", Integer.toString(i));
                 String currentDate = getDate();
-                if (!eName.equals("") ) {
+
+                if (!eName.equals("")){
                 ContentValues values = new ContentValues();
 
                 values.put(DataHelper.EVENT_NAME, eName);
                 values.put(DataHelper.EVENT_STATUS, "Yes");
-                values.put(DataHelper.MEMBER_NO, i);
+                values.put(DataHelper.MEMBER_NO, (i+1));
                 values.put(DataHelper.START_DATE,currentDate);
                 values.put(DataHelper.AMOUNT_TOTAL,"0");
-                    // insert query will insert data in database with
-                // contentValues pair.
-                     db.insert(helper.TABLE_NAME, null, values);
 
-                Toast.makeText(getContext(),
-                        "added db", Toast.LENGTH_LONG).show();
-
-
-            }
+                    db.insert(helper.TABLE_NAME, null, values);
+                }
 
             else {
-
                 Toast.makeText(getContext(),
                         "There is error", Toast.LENGTH_LONG).show();
             }
 
                 db.close();
                 helper.close();
-
-                //Creating the table of event added
 
                 helper1 = new DataHelper1(getContext());
                 helper2 = new DataHelper2(getContext());
@@ -133,49 +121,31 @@ public class HelloFragment extends DialogFragment {
                     db2.execSQL("CREATE TABLE " + eName + " (" + DataHelper2.PAYMENT_NAME + " TEXT," + DataHelper2.PAYMENT_BY + " TEXT," + DataHelper2.PAYMENT_AMOUNT + " TEXT);"
                     );
 
-                    Log.e("TABLE_NAME", eName);
-
                     ContentValues values;
                     values = new ContentValues();
-
-                    values.put(DataHelper1.CONTACT_NAME, "ADMIN (Self)");
+                    values.put(DataHelper1.CONTACT_NAME, "SELF");
                     values.put(DataHelper1.CONTACT_NO, " ");
                     values.put(DataHelper1.AMOUNT_PAID, "0");
 
+                        db1.insert(eName, null, values);
 
-                    // insert query will insert data in database with
-                    // contentValues pair.
-                    db1.insert(eName, null, values);
-
-
-                    // getting data from edit text to string variables
                     for (int j = 0; j < i; j++) {
 
                         String fname = names.get(j);
                         String contact = contacts.get(j);
 
-                        // checking for empty field
-
-                        // contentValues will add data into key value pair which
-                        // will later store in db
                         values = new ContentValues();
-
                         values.put(DataHelper1.CONTACT_NAME, fname);
                         values.put(DataHelper1.CONTACT_NO, contact);
                         values.put(DataHelper1.AMOUNT_PAID, "0");
 
-
-                        // insert query will insert data in database with
-                        // contentValues pair.
                         db1.insert(eName, null, values);
 
                         Toast.makeText(getContext(),
-                                "added db", Toast.LENGTH_LONG).show();
-
+                                "Successfully added Event", Toast.LENGTH_LONG).show();
                     }
                 }
                     else {
-
                         Toast.makeText(getContext(),
                                 "There is error", Toast.LENGTH_LONG).show();
                     }
@@ -227,8 +197,7 @@ public class HelloFragment extends DialogFragment {
 
     /**
      * Query the Uri and read contact details. Handle the picked contact data.
-     *
-     * @param data
+
      */
     private void contactPicked(Intent data) {
         Cursor cursor = null;

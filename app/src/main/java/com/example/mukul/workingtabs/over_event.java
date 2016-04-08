@@ -28,7 +28,7 @@ public class over_event extends AppCompatActivity {
         setContentView(R.layout.over_event_layout);
         evName = getIntent().getExtras().getString("eventtext");
         tview = (TextView) findViewById(R.id.eventId);
-        frame = (FrameLayout) findViewById(R.id.frameactive);
+        frame = (FrameLayout) findViewById(R.id.frameover);
         tview.setText(evName);
         if (checkDataBase()) {
 
@@ -40,13 +40,13 @@ public class over_event extends AppCompatActivity {
             OverEventAdapter adapter = new OverEventAdapter(getListofsettlements("settlement",evName,"payby"),getListofsettlements("settlement",evName,"payto"),getListofsettlements("settlement",evName,"amount"));
             recList.setAdapter(adapter);
             frame.addView(recList);
-        } else {
+        }
+        else {
             BlankDB = new TextView(this);
             BlankDB.setText("There is no payment to display");
             BlankDB.setTextSize(40);
             frame.addView(BlankDB);
         }
-
     }
 
     private boolean checkDataBase() {

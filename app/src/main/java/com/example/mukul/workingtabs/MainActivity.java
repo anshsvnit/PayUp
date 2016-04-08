@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private DialogFragment hellofrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +64,8 @@ public class MainActivity extends AppCompatActivity{
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "RECENTS");
-        adapter.addFragment(new TwoFragment(), "DEBT");
-        adapter.addFragment(new ThreeFragment(), "OWED");
+        adapter.addFragment(new OneFragment(), "ACTIVE EVENTS");
+        adapter.addFragment(new TwoFragment(), "RECENT EVENTS");
         viewPager.setAdapter(adapter);
     }
 
@@ -97,7 +97,4 @@ public class MainActivity extends AppCompatActivity{
             return mFragmentTitleList.get(position);
         }
     }
-
-
-
 }

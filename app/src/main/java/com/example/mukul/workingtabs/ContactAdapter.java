@@ -12,9 +12,11 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
-
-
-    ArrayList<String> tmpEvents,tmpStatus,MemberNumber,tmpMoney,tmpDates;
+    ArrayList<String> tmpEvents = new ArrayList<String>();
+    ArrayList<String> tmpStatus = new ArrayList<String>();
+    ArrayList<String> MemberNumber = new ArrayList<String>();
+    ArrayList<String> tmpMoney = new ArrayList<String>();
+    ArrayList<String> tmpDates = new ArrayList<String>();
 
     public ContactAdapter(ArrayList<String> listEvents,ArrayList<String> listStatus,ArrayList<String> listMembers,ArrayList<String> listMoney,ArrayList<String> listDates)  {
         tmpEvents = listEvents;
@@ -23,9 +25,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         tmpMoney = listMoney;
         tmpDates = listDates;
         Log.e("count of tmpEvents",String.valueOf(listEvents.size()));
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -49,13 +49,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
         }
         String cn = MemberNumber.get(i);
         Log.e("The string cn is:",cn);
-        contactViewHolder.eventMembers.setText(cn + " Members Added");
+        contactViewHolder.eventMembers.setText(cn + " Members");
         String cm = tmpMoney.get(i);
-        Log.e("The string cn is:",cm);
-        contactViewHolder.eventMembers.setText(cm);
+        Log.e("The string cn is:","Total Amount : "+ cm);
+        contactViewHolder.amount.setText(cm);
         String cd = tmpDates.get(i);
         Log.e("The string cn is:",cd);
-        contactViewHolder.eventMembers.setText(cd);
+        contactViewHolder.sdate.setText(cd);
 
     }
 
@@ -67,7 +67,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
         return new ContactViewHolder(itemView);
     }
-
 
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
 

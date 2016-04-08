@@ -27,7 +27,6 @@ public class OneFragment extends Fragment {
     TextView BlankDB;
     private SQLiteDatabase datab;
 
-
     public OneFragment() {
         // Required empty public constructor
     }
@@ -45,6 +44,7 @@ public class OneFragment extends Fragment {
         frame = (FrameLayout)v.findViewById(R.id.frame);
 
         if(checkDataBase()) {
+
             recList = new RecyclerView(getActivity());
             recList.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -52,6 +52,7 @@ public class OneFragment extends Fragment {
             recList.setLayoutManager(llm);
             ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
             recList.setAdapter(ca);
+
             frame.addView(recList);
         }
 
@@ -76,7 +77,6 @@ public class OneFragment extends Fragment {
         return checkDB != null;
     }
 
-
     public ArrayList<String> getListofevents(String evName,String attribute) {
 
         datab = getActivity().openOrCreateDatabase(evName, Context.MODE_PRIVATE, null);
@@ -94,8 +94,6 @@ public class OneFragment extends Fragment {
         datab.close();
         return array;
     }
-
-
 }
 
 

@@ -36,7 +36,7 @@ public class TwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_two, container, false);
         frame = (FrameLayout)v.findViewById(R.id.frameover);
 
@@ -48,6 +48,7 @@ public class TwoFragment extends Fragment {
             recList.setLayoutManager(llm);
             ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
             recList.setAdapter(ca);
+
             frame.addView(recList);
         }
 

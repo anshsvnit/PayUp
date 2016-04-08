@@ -8,43 +8,109 @@
     card_view:cardCornerRadius="4dp"
     android:layout_margin="5dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/pfrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textSize="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-           />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/pto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textSize="10dp"
-            android:layout_below="@id/eventName"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            />
-        <TextView
-            android:id="@+id/payamount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textSize="10dp"
-            android:layout_below="@id/eventName"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            />
+            <TextView
+                android:id="@+id/pfrom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="Noel"
+                android:gravity="right"
+                android:textStyle="italic"
+                android:layout_weight="1"
+                />
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="owes"
+                />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
+                android:text="------------"/>
+
+            <TextView
+                android:id="@+id/pamount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="$50"
+                android:layout_weight="2"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
+                android:text="-------------"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="right"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="to"
+                />
+
+            <TextView
+                android:id="@+id/pto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="26sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="Joel"
+                android:layout_weight="1"
+                android:textStyle="italic"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

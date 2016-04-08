@@ -22,7 +22,6 @@ public class DataHelper3 extends SQLiteOpenHelper{
     public static final String AMOUNT ="amount";
 
 
-
     public DataHelper3(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VER);
         // TODO Auto-generated constructor stub

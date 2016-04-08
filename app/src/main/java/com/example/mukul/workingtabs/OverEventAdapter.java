@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class OverEventAdapter extends RecyclerView.Adapter<OverEventAdapter.overEventViewHolder> {
 
-
-
-    public ArrayList<String> tmpfrom,tmpto,tmpamount;
+    public ArrayList<String> tmpfrom = new ArrayList<String>();
+    public ArrayList<String> tmpto = new ArrayList<String>();
+    public ArrayList<String> tmpamount = new ArrayList<String>();
 
     public OverEventAdapter(ArrayList<String> listFrom, ArrayList<String> listTo, ArrayList<String> listAmount){
         tmpfrom = listFrom;
@@ -22,7 +22,6 @@ public class OverEventAdapter extends RecyclerView.Adapter<OverEventAdapter.over
         tmpamount = listAmount;
         Log.e("count of tmpfrom",String.valueOf(tmpfrom.size()));
     }
-
 
     @Override
     public int getItemCount() {
@@ -51,7 +50,6 @@ public class OverEventAdapter extends RecyclerView.Adapter<OverEventAdapter.over
 
         return new overEventViewHolder(itemView);
     }
-
 
     public static class overEventViewHolder extends RecyclerView.ViewHolder {
 
