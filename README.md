@@ -4,6 +4,8 @@ PayUp is an utility app that simplifies your money sharing problems. It helps in
 # How To Use
 
 1. Login to the App with your Email Id and Password.
+(Email id: foo@example.com  Password : hello)
+
 2. Create New Event and add the Participants
 3. Open the Event Page
 
