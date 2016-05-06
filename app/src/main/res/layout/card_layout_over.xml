@@ -19,26 +19,26 @@
 
             <TextView
                 android:id="@+id/pfrom"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp"
-                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="Noel"
-                android:gravity="right"
+                android:gravity="left"
                 android:textStyle="italic"
-                android:layout_weight="1"
+                android:textColor="#f44336"
                 />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:gravity="left"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="owes"
+                android:textColor="#f44336"
                 />
         </LinearLayout>
         <LinearLayout
@@ -50,9 +50,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:text="------------"/>
 
             <TextView
@@ -60,9 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="30sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
                 android:text="$50"
                 android:layout_weight="2"
                 android:textStyle="bold"
@@ -73,10 +69,8 @@
                 android:layout_weight="1"
                 android:gravity="left"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:textSize="20sp"
-                android:text="-------------"/>
+                android:textSize="16sp"
+                android:text="------------"/>
 
         </LinearLayout>
 
@@ -87,24 +81,28 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:textColor="#b2ff59"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
                 android:text="to"
                 />
 
             <TextView
                 android:id="@+id/pto"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:textSize="26sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:text="Joel"
-                android:layout_weight="1"
+                android:textSize="20sp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Joel Varghese"
+                android:textColor="#b2ff59"
                 android:textStyle="italic"
                 />
 

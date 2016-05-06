@@ -1,6 +1,5 @@
 package com.example.mukul.workingtabs;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +11,9 @@ import java.util.ArrayList;
 
 public class OverEventAdapter extends RecyclerView.Adapter<OverEventAdapter.overEventViewHolder> {
 
-    public ArrayList<String> tmpfrom = new ArrayList<String>();
-    public ArrayList<String> tmpto = new ArrayList<String>();
-    public ArrayList<String> tmpamount = new ArrayList<String>();
+    private ArrayList<String> tmpfrom = new ArrayList<String>();
+    private ArrayList<String> tmpto = new ArrayList<String>();
+    private ArrayList<String> tmpamount = new ArrayList<String>();
 
     public OverEventAdapter(ArrayList<String> listFrom, ArrayList<String> listTo, ArrayList<String> listAmount){
         tmpfrom = listFrom;

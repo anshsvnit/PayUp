@@ -1,23 +1,23 @@
 package com.example.mukul.workingtabs;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -28,20 +28,19 @@ import java.util.Date;
 import java.util.List;
 
 public class HelloFragment extends DialogFragment {
-    public final int RESULT_PICK_CONTACT = 8500;
-    List<String> names = new ArrayList<String>();
-    List<String> contacts = new ArrayList<String>();
-    public int i = 0;
-    Button btn,sub_but;
-    View v;
-    TextView tview1;
-    EditText eventName;
+    private final int RESULT_PICK_CONTACT = 8500;
+    private int i = 0;
     public DataHelper helper;
     public DataHelper1 helper1;
     public DataHelper2 helper2;
     public SQLiteDatabase db,db1,db2;
-
-    public String eName;
+    private String eName;
+    List<String> names = new ArrayList<String>();
+    List<String> contacts = new ArrayList<String>();
+    Button btn,sub_but;
+    View v;
+    TextView tview1;
+    EditText eventName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class HelloFragment extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-            // TODO Auto-generated method stub
+                // TODO Auto-generated method stub
                 getDialog().dismiss();
             }
         });
@@ -79,6 +78,7 @@ public class HelloFragment extends DialogFragment {
                 // TODO Add new Event
 
                 eName = eventName.getText().toString();
+                eName = eName.replaceAll(" ", "_");
                 helper = new DataHelper(getContext());
 
                 // getting database for reading/writing purpose
@@ -88,21 +88,21 @@ public class HelloFragment extends DialogFragment {
                 String currentDate = getDate();
 
                 if (!eName.equals("")){
-                ContentValues values = new ContentValues();
+                    ContentValues values = new ContentValues();
 
-                values.put(DataHelper.EVENT_NAME, eName);
-                values.put(DataHelper.EVENT_STATUS, "Yes");
-                values.put(DataHelper.MEMBER_NO, (i+1));
-                values.put(DataHelper.START_DATE,currentDate);
-                values.put(DataHelper.AMOUNT_TOTAL,"0");
+                    values.put(DataHelper.EVENT_NAME, eName);
+                    values.put(DataHelper.EVENT_STATUS, "Yes");
+                    values.put(DataHelper.MEMBER_NO, (i+1));
+                    values.put(DataHelper.START_DATE,currentDate);
+                    values.put(DataHelper.AMOUNT_TOTAL,"0");
 
                     db.insert(helper.TABLE_NAME, null, values);
                 }
 
-            else {
-                Toast.makeText(getContext(),
-                        "There is error", Toast.LENGTH_LONG).show();
-            }
+                else {
+                    Toast.makeText(getContext(),
+                            "There is error", Toast.LENGTH_LONG).show();
+                }
 
                 db.close();
                 helper.close();
@@ -127,7 +127,7 @@ public class HelloFragment extends DialogFragment {
                     values.put(DataHelper1.CONTACT_NO, " ");
                     values.put(DataHelper1.AMOUNT_PAID, "0");
 
-                        db1.insert(eName, null, values);
+                    db1.insert(eName, null, values);
 
                     for (int j = 0; j < i; j++) {
 
@@ -145,25 +145,24 @@ public class HelloFragment extends DialogFragment {
                                 "Successfully added Event", Toast.LENGTH_LONG).show();
                     }
                 }
-                    else {
-                        Toast.makeText(getContext(),
-                                "There is error", Toast.LENGTH_LONG).show();
-                    }
+                else {
+                    Toast.makeText(getContext(),
+                            "There is error", Toast.LENGTH_LONG).show();
+                }
 
-                    // closing the database connection
+                // closing the database connection
                 db1.close();
                 db2.close();
                 helper1.close();
                 helper2.close();
                 getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                     @Override
-                                                     public void onDismiss(DialogInterface dialog) {
-                                                         getActivity().finish();
-                                                         startActivity(getActivity().getIntent());
-                                                     }
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        getActivity().finish();
+                        startActivity(getActivity().getIntent());
+                    }
 
-                                                 } );
-
+                } );
                 getDialog().dismiss();
             }
         });
@@ -220,15 +219,15 @@ public class HelloFragment extends DialogFragment {
             contacts.add(phoneNo);
             i++;
             // Set the value to the textviews
-                        tview1.append(name);
-                        tview1.append("\n");
+            tview1.append(name);
+            tview1.append("\n");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String getDate(){
+    private String getDate(){
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         Date today = Calendar.getInstance().getTime();
         String reportDate = df.format(today);

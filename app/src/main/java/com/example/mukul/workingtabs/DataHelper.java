@@ -37,7 +37,7 @@ public class DataHelper  extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
         //creating string sqlTable for creating a table
-        String sqlTable = "CREATE TABLE " +TABLE_NAME+ "(" +EVENT_NAME+ " TEXT," +EVENT_STATUS+  " TEXT," + MEMBER_NO+" NUMBER," +AMOUNT_TOTAL+" TEXT," +START_DATE+" TEXT);";
+        String sqlTable = "CREATE TABLE " +TABLE_NAME+ "(" +EVENT_NAME+ " TEXT PRIMARY KEY NOT NULL," +EVENT_STATUS+  " TEXT," + MEMBER_NO+" NUMBER," +AMOUNT_TOTAL+" TEXT," +START_DATE+" TEXT);";
         //db.execSQL() will execute string which we provide and will create a table with given table name and fields.
        Log.e("TABLE_NAME",TABLE_NAME);
         db.execSQL(sqlTable);

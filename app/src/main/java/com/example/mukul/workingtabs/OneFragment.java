@@ -1,6 +1,6 @@
 package com.example.mukul.workingtabs;
+
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -12,12 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
-
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class OneFragment extends Fragment {
@@ -50,7 +48,7 @@ public class OneFragment extends Fragment {
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             recList.setLayoutManager(llm);
-            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
+            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"),getActivity());
             recList.setAdapter(ca);
 
             frame.addView(recList);
@@ -58,7 +56,7 @@ public class OneFragment extends Fragment {
 
         else{
             BlankDB = new TextView(getActivity());
-            BlankDB.setText("There is no event to display");
+            BlankDB.setText("There are no Active events to display");
             BlankDB.setTextSize(40);
             frame.addView(BlankDB);
         }

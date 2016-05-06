@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,14 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class over_event extends AppCompatActivity {
+    public SQLiteDatabase db;
     FrameLayout frame;
     RecyclerView recList;
     TextView BlankDB,tview;
     String evName;
-    public SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

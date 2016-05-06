@@ -7,38 +7,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-
 import android.support.design.widget.FloatingActionButton;
-
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.util.Log;
-
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class activeEvent extends AppCompatActivity {
 
+    public SQLiteDatabase db,db1;
     FrameLayout frame;
     RecyclerView recList;
     TextView BlankDB,tview;
     String evName;
     Button addPayment;
     DataHelper helper;
-    private DialogFragment addPayFrag;
-    public SQLiteDatabase db,db1;
     List<String> tmpAmounts = new ArrayList<String>();
+    private DialogFragment addPayFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +56,7 @@ public class activeEvent extends AppCompatActivity {
             frame.addView(recList);
         } else {
             BlankDB = new TextView(this);
-            BlankDB.setText("There is no event to display");
+            BlankDB.setText("There is No Payment in this Event");
             BlankDB.setTextSize(40);
             frame.addView(BlankDB);
         }
@@ -83,10 +77,15 @@ public class activeEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updatesettlementDB();
+                finish();
+                Intent intent = new Intent(view.getContext(),MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
     }
+
 
     private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
@@ -117,13 +116,15 @@ public class activeEvent extends AppCompatActivity {
     }
 
 
-    public void updatesettlementDB() {
+    private void updatesettlementDB() {
 
         createSettlement();
-        SQLiteDatabase db2, db3;
+        SQLiteDatabase db2;
         db2 = this.openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
         List<Float> listpaymentspos = new ArrayList<Float>();
         List<String> listmemberspos = new ArrayList<String>();
+        List<Float> listpaymentsneg = new ArrayList<Float>();
+        List<String> listmembersneg = new ArrayList<String>();
         Cursor crs = db2.rawQuery("SELECT * FROM " + evName + " WHERE paid > 0 ORDER BY paid ASC", null);
         while (crs.moveToNext()) {
             String amountpaid = crs.getString(crs.getColumnIndex("paid"));
@@ -133,12 +134,10 @@ public class activeEvent extends AppCompatActivity {
             listmemberspos.add(uname);
         }
         crs.close();
-        db2.close();
+        //db2.close();
 
-        db3 = this.openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
-        List<Float> listpaymentsneg = new ArrayList<Float>();
-        List<String> listmembersneg = new ArrayList<String>();
-        Cursor c = db3.rawQuery("SELECT * FROM " + evName + " WHERE paid < 0 or paid = 0 ORDER BY paid ASC", null);
+        //db2 = this.openOrCreateDatabase("events", Context.MODE_PRIVATE, null);
+        Cursor c = db2.rawQuery("SELECT * FROM " + evName + " WHERE paid < 0 or paid = 0 ORDER BY paid ASC", null);
         while (c.moveToNext()) {
             String amountpaid = c.getString(c.getColumnIndex("paid"));
             String uname = c.getString(c.getColumnIndex("name"));
@@ -147,14 +146,14 @@ public class activeEvent extends AppCompatActivity {
             listmembersneg.add(uname);
         }
         c.close();
-        db3.close();
+        db2.close();
 
-        for (int i = 0, j = 0; i < listmemberspos.size() && j < listmembersneg.size(); ) {
+       /* for (int i = 0, j = 0; i < listmemberspos.size() && j < listmembersneg.size(); ) {
             Log.e("value of positive", listmemberspos.get(i));
             i++;
             Log.e("value of negative", listmembersneg.get(j));
             j++;
-        }
+        }*/
 
         List<String> payBy = new ArrayList<String>();
         List<String> payTo = new ArrayList<String>();
@@ -203,21 +202,20 @@ public class activeEvent extends AppCompatActivity {
 
         updateDatabaseSettlement(payBy, payTo, amount);
         updateEndStatus();
+
     }
 
 
-    public void updateEndStatus(){
+    private void updateEndStatus(){
         helper = new DataHelper(getBaseContext());
         db1= helper.getWritableDatabase();
         String query = "UPDATE event SET "+ DataHelper.EVENT_STATUS+ " = 'no' WHERE "+ DataHelper.EVENT_NAME +" = '"+evName+"'";
         db1.execSQL(query);
-        Intent intent = new Intent(getBaseContext(),MainActivity.class);
-        finish();
-        startActivity(intent);
+
     }
 
 
-    public void updateDatabaseSettlement(List<String> payFrom,List<String> payTo,List<Float> payAmount){
+    private void updateDatabaseSettlement(List<String> payFrom,List<String> payTo,List<Float> payAmount){
         DataHelper3 helper4 = new DataHelper3(getBaseContext());
         SQLiteDatabase db4;
         db4 = helper4.getWritableDatabase();
@@ -233,16 +231,16 @@ public class activeEvent extends AppCompatActivity {
         }
     }
 
-    public void createSettlement(){
+    private void createSettlement(){
         DataHelper3 helper1 = new DataHelper3(getBaseContext());
         SQLiteDatabase dbtmp;
         dbtmp = helper1.getWritableDatabase();
-        dbtmp.execSQL("CREATE TABLE " + evName + " (" + DataHelper3.FROM + " TEXT," + DataHelper3.TO + " TEXT," + DataHelper3.AMOUNT + " TEXT);"
+        dbtmp.execSQL("CREATE TABLE " + evName + " (" + DataHelper3.FROM + " TEXT," + DataHelper3.TO + " TEXT," + DataHelper3.AMOUNT + " NUMBER);"
         );
         helper1.close();
         dbtmp.close();
     }
-    public void updateEventsDatabase(String tmpName){
+    private void updateEventsDatabase(String tmpName){
         tmpAmounts = getListofpayments("payment", evName, "payment_amount");
         Float total= 0.0f;
         for(int i =0 ;i<tmpAmounts.size();i++){
@@ -256,7 +254,6 @@ public class activeEvent extends AppCompatActivity {
         db3 = helper3.getWritableDatabase();
         String query = "UPDATE event SET "+ DataHelper.AMOUNT_TOTAL+ " = '"+String.valueOf(total)+"' WHERE "+ DataHelper.EVENT_NAME +" = '"+tmpName+"'";
         db3.execSQL(query);
-
     }
 }
 

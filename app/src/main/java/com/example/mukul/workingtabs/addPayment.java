@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,36 +14,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
 import android.widget.LinearLayout;
-
 import android.widget.Toast;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
 public class addPayment extends DialogFragment implements OnItemSelectedListener {
 
+    public DataHelper2 helper;
+    public DataHelper1 helper1;
+    public SQLiteDatabase db, db1;
+    private int numberMember;
+    private List<String> list = new ArrayList<String>();
+    private List<String> listedittext = new ArrayList<String>();
+    private List<EditText> listInputs = new ArrayList<EditText>();
     Button btn, submit_but;
     String eventName, paymentNameString, paymentAmountString, paymentByString, selectedPayee;
     View v;
     CheckBox divideEqual;
     LinearLayout relativeLayout;
     EditText paymentName, paymentAmount;
-    public DataHelper2 helper;
-    public DataHelper1 helper1;
-    public SQLiteDatabase db, db1;
     private android.widget.Spinner memberList;
-    public int numberMember;
-    public List<String> list = new ArrayList<String>();
-    public List<String> listedittext = new ArrayList<String>();
-    public List<EditText> listInputs = new ArrayList<EditText>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,7 +85,10 @@ public class addPayment extends DialogFragment implements OnItemSelectedListener
 
             public void onClick(View v) {
 
-                paymentAmountString = paymentAmount.getText().toString();
+                paymentNameString = paymentName.getText().toString();
+                paymentNameString = paymentNameString.replaceAll(" ", "_");
+                paymentAmountString= paymentAmount.getText().toString();
+
                 if (divideEqual.isChecked()) {
                     addPaymentDB();
                     helper1 = new DataHelper1(getActivity());
@@ -243,15 +243,15 @@ public class addPayment extends DialogFragment implements OnItemSelectedListener
     }
 
     public boolean checkTotal(String payment) {
-        Float total = 0.0f;
+        int total = 0;
         for (int memberNumber = 0; memberNumber < numberMember; memberNumber++) {
             String tmpValue = listInputs.get(memberNumber).getText().toString();
             if(tmpValue.equalsIgnoreCase("")){
                 return false;
             }
-            total+= Float.valueOf(tmpValue);
+            total+= Integer.valueOf(tmpValue);
         }
-        if(payment.equalsIgnoreCase(String.valueOf(total))){
+        if(payment.equals(String.valueOf(total))){
             return true;
         }
         else

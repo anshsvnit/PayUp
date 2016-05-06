@@ -1,29 +1,21 @@
 
 package com.example.mukul.workingtabs;
 
-       import android.os.Bundle;
-       import android.support.design.widget.FloatingActionButton;
-       import android.support.design.widget.TabLayout;
-        import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
-       import android.support.v4.app.FragmentActivity;
-        import android.support.v4.app.FragmentPagerAdapter;
-        import android.support.v4.view.ViewPager;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-       import android.content.Intent;
-       import android.view.View;
-       import android.widget.Button;
-       import android.support.v4.app.FragmentTransaction;
-       import android.view.LayoutInflater;
-       import android.view.ViewGroup;
-       import android.widget.ArrayAdapter;
-       import android.widget.Spinner;
-       import android.view.View.OnClickListener;
-       import android.support.v4.app.DialogFragment;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.View.OnClickListener;
 
-       import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -48,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+
         FloatingActionButton button = (FloatingActionButton) findViewById(R.id.fab);
 
         OnClickListener listener = new OnClickListener() {
@@ -61,6 +54,7 @@ public class MainActivity extends AppCompatActivity{
 
         button.setOnClickListener(listener);
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

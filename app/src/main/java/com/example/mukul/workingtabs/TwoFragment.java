@@ -46,7 +46,7 @@ public class TwoFragment extends Fragment {
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             recList.setLayoutManager(llm);
-            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"));
+            ContactAdapter ca = new ContactAdapter(getListofevents("events", "name"),getListofevents("events", "status"),getListofevents("events", "numbers"),getListofevents("events", "totalmoney"),getListofevents("events", "sdate"),getActivity());
             recList.setAdapter(ca);
 
             frame.addView(recList);
@@ -54,7 +54,7 @@ public class TwoFragment extends Fragment {
 
         else{
             BlankDB = new TextView(getActivity());
-            BlankDB.setText("There is no event to display");
+            BlankDB.setText("There are no recent event to display");
             BlankDB.setTextSize(40);
             frame.addView(BlankDB);
         }

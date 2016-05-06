@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder> {
 
-    public List<String> paymentsNames= new ArrayList<String>();
-    public List<String> paymentsBy= new ArrayList<String>();
-    public List<String> paymentsAmount= new ArrayList<String>();
+    private List<String> paymentsNames= new ArrayList<String>();
+    private List<String> paymentsBy= new ArrayList<String>();
+    private List<String> paymentsAmount= new ArrayList<String>();
 
     public PaymentAdapter(List<String> pNameList, List<String> pByList, List<String> pAmountList)  {
         paymentsNames= pNameList;
